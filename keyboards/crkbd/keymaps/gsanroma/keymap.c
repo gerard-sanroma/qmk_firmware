@@ -68,3 +68,87 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   )
 };
+
+
+// custom tmux actions
+// alt-[ sends ctrl-b followed by [
+// alt-] sends ctrl-b followed by ]
+// alt-up_arrow sends ctrl-b followed by up_arrow
+// alt-down_arrow sends ctrl-b followed by down_arrow
+// alt-left_arrow sends ctrl-b followed by left_arrow
+// alt-right_arrow sends ctrl-b followed by right_arrow
+// alt-m sends ctrl-b followed by z
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        // Check for Alt combinations
+        if (get_mods() & MOD_MASK_ALT) {
+            switch (keycode) {
+                case KC_LBRC: // Alt-[
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_LBRC);
+                    return false;
+
+                case KC_RBRC: // Alt-]
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_RBRC);
+                    return false;
+
+                case KC_UP: // Alt-Up Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_UP);
+                    return false;
+
+                case KC_DOWN: // Alt-Down Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_DOWN);
+                    return false;
+
+                case KC_LEFT: // Alt-Left Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_LEFT);
+                    return false;
+
+                case KC_RGHT: // Alt-Right Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_RGHT);
+                    return false;
+
+                case KC_M: // Alt-M
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_Z);
+                    return false;
+            }
+        }
+
+    }
+    return true;
+}
+
