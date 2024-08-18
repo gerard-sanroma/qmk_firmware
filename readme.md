@@ -1,3 +1,19 @@
+# Configuration for gsanroma
+
+- `pip install qmk`
+- `qmk setup`  will install all deps
+- `sudo cp util/udev/50-qmk.rules /etc/udev/rules.d`
+
+config (optional?)
+`qmk config user.keyboard=crkbd/rev1`
+`qmk config user.keymap=gsanroma`
+
+compile:
+`qmk compile -kb crkbd/rev1 -km gsanroma`
+
+flash:
+`qmk flash -kb crkbd/rev1 -km gsanroma -bl avrdude`
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
