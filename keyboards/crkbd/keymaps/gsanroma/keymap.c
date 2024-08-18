@@ -70,19 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-// custom tmux actions
-// alt-[ sends ctrl-b followed by [
-// alt-] sends ctrl-b followed by ]
-// alt-up_arrow sends ctrl-b followed by up_arrow
-// alt-down_arrow sends ctrl-b followed by down_arrow
-// alt-left_arrow sends ctrl-b followed by left_arrow
-// alt-right_arrow sends ctrl-b followed by right_arrow
-// alt-m sends ctrl-b followed by z
+// tmux actions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         // Check for Alt combinations
         if (get_mods() & MOD_MASK_ALT) {
             switch (keycode) {
+
+                // move along windows
                 case KC_LBRC: // Alt-[
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
@@ -101,7 +96,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_RBRC);
                     return false;
 
-                case KC_UP: // Alt-Up Arrow
+                // move along panes
+                //
+                case KC_K: // Alt-k
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
                     tap_code(KC_B);
@@ -110,7 +107,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_UP);
                     return false;
 
-                case KC_DOWN: // Alt-Down Arrow
+                case KC_J: // Alt-j
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
                     tap_code(KC_B);
@@ -119,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_DOWN);
                     return false;
 
-                case KC_LEFT: // Alt-Left Arrow
+                case KC_H: // Alt-h
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
                     tap_code(KC_B);
@@ -128,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_LEFT);
                     return false;
 
-                case KC_RGHT: // Alt-Right Arrow
+                case KC_L: // Alt-l
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
                     tap_code(KC_B);
@@ -137,6 +134,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_RGHT);
                     return false;
 
+                // maximize/minimize pane
+                //
                 case KC_M: // Alt-M
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
@@ -144,6 +143,107 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     wait_ms(10);  // wait a small delay
                     unregister_code(KC_LCTL);
                     tap_code(KC_Z);
+                    return false;
+
+                // new window
+                //
+                case KC_N: // Alt-N
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_M);
+                    return false;
+
+                // del pane
+                //
+                case KC_X: // Alt-x
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_X);
+                    return false;
+
+                // vim mode
+                //
+                case KC_ESC: // Alt-esc
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_ESC);
+                    return false;
+
+                // new panes (hor and vert)
+                //
+                case KC_MINS: // Alt--
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_MINS);
+                    return false;
+
+                case KC_PIPE: // Alt-|
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    register_code(KC_LSFT);    // Press and hold the Shift key
+                    tap_code(KC_BSLS);         // Tap the Backslash key (| when shifted)
+                    unregister_code(KC_LSFT);  // Release the Shift key
+                    return false;
+
+                // resize panes
+                //
+                case KC_UP: // Alt-Up Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    register_code(KC_LALT);
+                    tap_code(KC_UP);
+                    unregister_code(KC_LALT);
+                    return false;
+
+                case KC_DOWN: // Alt-Down Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    register_code(KC_LALT);
+                    tap_code(KC_DOWN);
+                    unregister_code(KC_LALT);
+                    return false;
+
+                case KC_LEFT: // Alt-Left Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    register_code(KC_LALT);
+                    tap_code(KC_LEFT);
+                    unregister_code(KC_LALT);
+                    return false;
+
+                case KC_RGHT: // Alt-Right Arrow
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    register_code(KC_LALT);
+                    tap_code(KC_RGHT);
+                    unregister_code(KC_LALT);
                     return false;
             }
         }
