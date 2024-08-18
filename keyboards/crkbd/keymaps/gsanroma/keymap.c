@@ -77,6 +77,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (get_mods() & MOD_MASK_ALT) {
             switch (keycode) {
 
+                // detach
+                case KC_D: // Alt-[
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_D);
+                    return false;
+
                 // move along windows
                 case KC_LBRC: // Alt-[
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
