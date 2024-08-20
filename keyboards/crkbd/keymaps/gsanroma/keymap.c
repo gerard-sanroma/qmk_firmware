@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL, _______,  KC_SPC,     KC_SPC, _______, KC_RGUI
+                                          KC_LCTL, _______,  KC_SPC,     KC_ENT, _______, KC_RGUI
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -137,7 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_RGHT);
                     return false;
 
-                case KC_M: // Alt-M
+                case KC_Z: // Alt-z
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
                     tap_code(KC_B);
