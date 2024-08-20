@@ -78,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             switch (keycode) {
 
                 // detach
-                case KC_D: // Alt-[
+                case KC_D: // Alt-d
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
                     tap_code(KC_B);
@@ -158,6 +158,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // new window
                 //
                 case KC_N: // Alt-N
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_N);
+                    return false;
+
+                // mark window
+                //
+                case KC_M: // Alt-M
                     unregister_mods(MOD_MASK_ALT); // Unregister Alt
                     register_code(KC_LCTL);
                     tap_code(KC_B);
