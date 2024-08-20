@@ -155,6 +155,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_Z);
                     return false;
 
+                // navigation panel
+                //
+                case KC_W: // Alt-w
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_W);
+                    return false;
+
                 // new window
                 //
                 case KC_N: // Alt-N
@@ -163,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_B);
                     wait_ms(10);  // wait a small delay
                     unregister_code(KC_LCTL);
-                    tap_code(KC_N);
+                    tap_code(KC_C);
                     return false;
 
                 // mark window
@@ -207,7 +218,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_B);
                     wait_ms(10);  // wait a small delay
                     unregister_code(KC_LCTL);
-                    tap_code(KC_MINS);
+                    register_code(KC_LSFT);    // Press and hold the Shift key
+                    tap_code(KC_QUOT);
+                    unregister_code(KC_LSFT);  // Release the Shift key
                     return false;
 
                 case KC_PIPE: // Alt-|
@@ -217,7 +230,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     wait_ms(10);  // wait a small delay
                     unregister_code(KC_LCTL);
                     register_code(KC_LSFT);    // Press and hold the Shift key
-                    tap_code(KC_BSLS);         // Tap the Backslash key (| when shifted)
+                    tap_code(KC_5);
                     unregister_code(KC_LSFT);  // Release the Shift key
                     return false;
 
