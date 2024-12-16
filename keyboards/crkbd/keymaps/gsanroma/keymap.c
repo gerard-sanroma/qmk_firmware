@@ -166,6 +166,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_W);
                     return false;
 
+                // rename session (assumes bind $ in .tmux.conf)
+                //
+                case KC_DLR: // Alt-$
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    register_code(KC_LSFT);    // Press and hold the Shift key
+                    tap_code(KC_4);
+                    unregister_code(KC_LSFT);  // Release the Shift key
+                    return false;
+
+                // rename window
+                //
+                case KC_COMM: // Alt-,
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    tap_code(KC_COMM);
+                    return false;
+
                 // new window
                 //
                 case KC_N: // Alt-N
@@ -186,6 +210,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     wait_ms(10);  // wait a small delay
                     unregister_code(KC_LCTL);
                     tap_code(KC_M);
+                    return false;
+
+                // join panel (assumes bind @ in .tmux.conf)
+                //
+                case KC_AT: // Alt-@
+                    unregister_mods(MOD_MASK_ALT); // Unregister Alt
+                    register_code(KC_LCTL);
+                    tap_code(KC_B);
+                    wait_ms(10);  // wait a small delay
+                    unregister_code(KC_LCTL);
+                    register_code(KC_LSFT);    // Press and hold the Shift key
+                    tap_code(KC_2);
+                    unregister_code(KC_LSFT);  // Release the Shift key
                     return false;
 
                 // del pane
