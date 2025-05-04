@@ -9,3 +9,7 @@
 
 qmk compile -kb crkbd/rev1 -km gsanroma
 qmk flash -kb crkbd/rev1 -km gsanroma -bl avrdude
+
+# compile crkbd `rev4_1` (oscar)
+
+qmk `compile -kb crkbd/rev4_1/standard -km default`
